@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+  <meta content="telephone=no, date=no, address=no, email=no" name="format-detection"/>
+  <meta content="#f6efe8" name="theme-color"/>
+  <meta content="Thiệp cưới Lan và Chung, ngày 12 tháng 12 năm 2026" name="description"/>
+  <title>Lan & Chung | 12.12.2026</title>
+  <!-- Replace the placeholder domain in these URLs with the deployed HTTPS website URL. -->
+  <link href="https://lan-chung-wedding.netlify.app/" rel="canonical"/>
+  <meta content="website" property="og:type"/>
+  <meta content="vi_VN" property="og:locale"/>
+  <meta content="Lan &amp; Chung" property="og:site_name"/>
+  <meta content="Lan &amp; Chung | 12.12.2026" property="og:title"/>
+  <meta content="Lan và Chung trân trọng mời bạn cùng hiện diện trong ngày khởi đầu hành trình mới — 12.12.2026." property="og:description"/>
+  <meta content="https://lan-chung-wedding.netlify.app/" property="og:url"/>
+  <meta content="https://lan-chung-wedding.netlify.app/assets/images/hero.webp" property="og:image"/>
+  <meta content="1200" property="og:image:width"/>
+  <meta content="630" property="og:image:height"/>
+  <meta content="Lan và Chung trong ngày cưới" property="og:image:alt"/>
+  <meta content="image/webp" property="og:image:type"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="Lan &amp; Chung | 12.12.2026" name="twitter:title"/>
+  <meta content="Lan và Chung trân trọng mời bạn cùng hiện diện trong ngày khởi đầu hành trình mới — 12.12.2026." name="twitter:description"/>
+  <meta content="https://lan-chung-wedding.netlify.app/assets/images/hero.webp" name="twitter:image"/>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@300;400;500;600&display=swap&subset=vietnamese" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  
+  <script defer="" src="config.js"></script>
+  <script defer="" src="main.js"></script>
+  <script defer="" src="wishes-slider.js"></script>
+</head>
+
+<body class="locked">
+  <a class="skip" href="#main">Đi đến nội dung chính</a>
+
+  <!-- Canvas hiệu ứng cánh hoa rơi lãng mạn -->
+  <canvas class="petals-canvas" id="petalsCanvas"></canvas>
+  <!-- Canvas hiệu ứng bùng nổ bụi vàng & hoa khi mở thiệp -->
+  <canvas class="burst-canvas" id="burstCanvas"></canvas>
+
+  <!-- Trang bìa mở thiệp: Phong bì hoàng gia & Con dấu sáp L & C -->
+  <div class="cover" id="cover">
+    <!-- Hạt bụi vàng lấp lánh nền -->
+    <div class="cover-sparkles"></div>
+
+    <div class="envelope-scene" id="envelopeScene">
+      <div class="envelope" id="envelope">
+        <!-- Nắp phong bì mở ngược lên kèm lớp lót hoa lá sang trọng -->
+        <div class="envelope-flap-top" id="envelopeFlapTop">
+          <div class="envelope-liner"></div>
+        </div>
+        
+        <!-- Lá thiệp mời sang trọng bên trong phong bì -->
+        <div class="envelope-card" id="envelopeCard">
+          <div class="envelope-card-border"></div>
+          <div class="guest-card-badge" id="guestCardBadge" hidden>
+            <span class="guest-card-prefix">Trân trọng kính mời</span>
+            <strong class="guest-card-name" id="guestCoverName"></strong>
+          </div>
+          <span class="eyebrow">Wedding invitation</span>
+          <picture>
+            <source media="(min-width: 1024px)" srcset="assets/images/logo_liu_chiu_desktop.webp"/>
+            <source media="(min-width: 768px)" srcset="assets/images/logo_liu_chiu_tablet.webp"/>
+            <img alt="Logo Liu Chiu" src="assets/images/logo_liu_chiu_mobile.webp"/>
+          </picture>
+          <h1>Lan <i>&</i> Chung</h1>
+          <p class="envelope-date">12 · 12 · 2026</p>
+        </div>
+
+        <!-- Thân phong bì trước với viền chỉ vàng -->
+        <div class="envelope-pocket">
+          <div class="envelope-pocket-gold-border"></div>
+        </div>
+
+        <!-- Dải ruy băng lụa chạy ngang phong bì -->
+        <div class="envelope-ribbon">
+          <div class="envelope-ribbon-tag">
+            <span>INVITATION</span>
+            <b>LAN &amp; CHUNG</b>
+          </div>
+        </div>
+
+        <!-- Nắp phong bì tam giác gập xuống có viền vàng kim -->
+        <div class="envelope-flap" id="envelopeFlap">
+          <div class="envelope-flap-gold-edge"></div>
+        </div>
+
+        <!-- Con dấu sáp hoàng gia dập nổi chữ L & C và vòng nguyệt quế vàng -->
+        <button aria-label="Chạm để mở thiệp cưới" class="wax-seal" id="open" type="button">
+          <div class="wax-seal-wrapper">
+            <svg class="wax-seal-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="waxGrad" cx="36%" cy="32%" r="68%">
+                  <stop offset="0%" stop-color="#cf3b37"/>
+                  <stop offset="42%" stop-color="#a32422"/>
+                  <stop offset="82%" stop-color="#731412"/>
+                  <stop offset="100%" stop-color="#4d0b09"/>
+                </radialGradient>
+                <linearGradient id="goldEmbroidery" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff2be"/>
+                  <stop offset="35%" stop-color="#e8c372"/>
+                  <stop offset="70%" stop-color="#bf933d"/>
+                  <stop offset="100%" stop-color="#ffe299"/>
+                </linearGradient>
+                <filter id="waxShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#450806" flood-opacity="0.6"/>
+                  <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.35"/>
+                </filter>
+                <filter id="emboss" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="0.4" flood-color="#000" flood-opacity="0.7"/>
+                </filter>
+              </defs>
+              <!-- Hình dáng mép sáp nóng chảy tự nhiên dập nổi -->
+              <path d="M50 3.5 C68 2.5 85 11 92 27 C98 41 95 61 88 75 C80 90 62 96.5 45 95.5 C28 94.5 11 85.5 5 69.5 C-2 53.5 2 33.5 12 19.5 C22 6.5 36 3.5 50 3.5 Z" fill="url(#waxGrad)" filter="url(#waxShadow)"/>
+              <!-- Gờ viền tròn dập chìm -->
+              <circle cx="50" cy="49" r="35" stroke="rgba(0,0,0,0.35)" stroke-width="1.5" fill="none"/>
+              <circle cx="50" cy="49" r="33" stroke="url(#goldEmbroidery)" stroke-width="1.2" stroke-dasharray="2.5 1.5" fill="none" opacity="0.85"/>
+              <!-- Vòng nguyệt quế hoàng gia mạ vàng -->
+              <g stroke="url(#goldEmbroidery)" stroke-width="1" fill="none" opacity="0.8" filter="url(#emboss)">
+                <path d="M28 63 C22 51 24 37 34 27 C36 25 39 23 43 22"/>
+                <path d="M72 63 C78 51 76 37 66 27 C64 25 61 23 57 22"/>
+                <path d="M26 56 C22 54 22 48 25 46 C28 45 30 50 26 56" fill="url(#goldEmbroidery)"/>
+                <path d="M25 44 C21 42 22 36 25 34 C28 34 29 39 25 44" fill="url(#goldEmbroidery)"/>
+                <path d="M28 33 C25 30 27 25 31 24 C34 25 34 30 28 33" fill="url(#goldEmbroidery)"/>
+                <path d="M74 56 C78 54 78 48 75 46 C72 45 70 50 74 56" fill="url(#goldEmbroidery)"/>
+                <path d="M75 44 C79 42 78 36 75 34 C72 34 71 39 75 44" fill="url(#goldEmbroidery)"/>
+                <path d="M72 33 C75 30 73 25 69 24 C66 25 66 30 72 33" fill="url(#goldEmbroidery)"/>
+              </g>
+              <!-- Chữ lồng thư pháp nghệ thuật L & C -->
+              <g filter="url(#emboss)">
+                <text x="50" y="54" font-family="'Cormorant Garamond', Georgia, serif" font-size="20" font-weight="600" fill="url(#goldEmbroidery)" text-anchor="middle" letter-spacing="1">L&amp;C</text>
+                <circle cx="50" cy="63" r="1.5" fill="url(#goldEmbroidery)"/>
+              </g>
+            </svg>
+            <div class="wax-shine"></div>
+          </div>
+          <!-- Lời mời chạm mở thiệp thanh lịch mạ vàng -->
+          <div class="wax-hint-wrap">
+            <span class="wax-hint-star">✦</span>
+            <span class="wax-hint-text">Chạm để mở thiệp</span>
+            <span class="wax-hint-star">✦</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thanh điều hướng Header -->
+  <header>
+    <a class="brand" href="#hero">
+      <picture>
+        <source media="(min-width: 1024px)" srcset="assets/images/logo_liu_chiu_desktop.webp"/>
+        <source media="(min-width: 768px)" srcset="assets/images/logo_liu_chiu_tablet.webp"/>
+        <img alt="Logo Liu Chiu" src="assets/images/logo_liu_chiu_mobile.webp"/>
+      </picture>
+    </a>
+    <button aria-expanded="false" class="menu" id="menu" type="button">Menu</button>
+    <nav id="nav">
+      <a href="#story">Câu chuyện</a>
+      <a href="#gallery">Album</a>
+      <a href="#events">Lễ cưới</a>
+      <a href="#wishes">Lời chúc</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+    <button class="share" id="share">Chia sẻ</button>
+  </header>
+
+  <!-- Nội dung chính -->
+  <main id="main">
+    <!-- 1. Section Hero (Bìa chính) -->
+    <section class="hero" id="hero">
+      <figure>
+        <picture>
+          <source media="(max-width: 768px)" srcset="assets/images/hero-mobile.webp"/>
+          <img alt="Hai người trong trang phục cưới chụp ảnh trước thác nước và hoa trắng" fetchpriority="high" height="1448" src="assets/images/hero.webp" width="1086"/>
+        </picture>
+      </figure>
+      <div class="hero-copy reveal">
+        <span class="eyebrow">The wedding edit · Volume 01</span>
+        <h2>Lan <i>&</i><br/>Chung</h2>
+        <div class="date">
+          <span>Thứ Bảy</span>
+          <b>12.12</b>
+          <span>2026</span>
+        </div>
+        <p id="heroInvitationText"><strong>Bùi Ngọc Lan</strong> và <strong>Nguyễn Văn Chung</strong> trân trọng kính mời <span class="guest-highlight" id="guestHeroName">bạn</span>.<br>Hãy đến chung vui và lưu giữ những khoảnh khắc đáng nhớ cùng chúng mình nhé.</p>
+      </div>
+    </section>
+
+    <!-- 2. Section Story (Câu chuyện tình yêu) -->
+    <section class="section" id="story">
+      <div class="heading reveal">
+        <span class="eyebrow">Chapter one</span>
+        <h2>Câu chuyện <em>của chúng mình</em></h2>
+      </div>
+      <div class="story">
+        <figure class="reveal">
+          <p>“Giữa hàng triệu cuộc gặp gỡ, chúng mình đã chọn ở lại bên nhau.”</p>
+          <img alt="Cô dâu trong chiếc váy cưới ren với đuôi váy dài giữa khu vườn" loading="lazy" src="assets/images/Bride-with-Lace-Train.png"/>
+        </figure>
+        <div class="timeline">
+          <article class="reveal">
+            <b>01</b>
+            <time>Tháng 8/2022</time>
+            <h3>Lần đầu gặp gỡ</h3>
+            <p>Có lẽ duyên phận bắt đầu từ những điều giản dị nhất.<br>
+            Từ ngày cùng làm việc tại một công ty, chúng mình quen biết, trở thành bạn bè và bắt đầu một câu chuyện mà khi ấy, chẳng ai ngờ sẽ đặc biệt đến vậy.</p>
+          </article>
+          <article class="reveal">
+            <b>02</b>
+            <time>Tháng 01/2026</time>
+            <h3>Ngày mình có nhau</h3>
+            <p>Từ những câu chuyện nhỏ, những lần gặp gỡ và những chuyến đi, chúng mình dần tìm thấy sự đồng điệu. Từ tình bạn, chúng mình trở thành người thương, cùng sẻ chia, trưởng thành và trở thành một phần trong cuộc sống của nhau.</p>
+          </article>
+          <article class="reveal">
+            <b>03</b>
+            <time>12/12/2026</time>
+            <h3>Lời hẹn trọn đời</h3>
+            <p>Sau những tháng ngày yêu thương và đồng hành, chúng mình chọn nắm tay nhau đi hết chặng đường phía trước. Ngày <strong class="story-date">12.12.2026</strong>, tình yêu viết tiếp chương mới — mang tên Gia đình.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Section Gallery (Album ảnh) -->
+    <section class="section gallery" id="gallery">
+      <div class="heading center reveal">
+        <span class="eyebrow">Selected moments</span>
+        <h2>Wedding <em>Gallery</em></h2>
+      </div>
+      <div class="photos">
+        <button class="photo reveal" data-img="assets/images/CD-CR.png">
+          <img alt="Lan và Chung trong bộ ảnh cưới giữa khu vườn hoa trắng" loading="lazy" src="assets/images/CD-CR.png"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/Bride-with-Lace-Train.png">
+          <img alt="Cô dâu trong chiếc váy cưới ren với đuôi váy dài" loading="lazy" src="assets/images/Bride-with-Lace-Train.png"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/CR.png">
+          <img alt="Cô dâu thử chiếc váy cưới ren bồng bềnh" loading="lazy" src="assets/images/CR.png"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/26.jpg">
+          <img alt="Lan và Chung khoe nhẫn đính hôn bên thác nước" loading="lazy" src="assets/images/26.jpg"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/24.jpg">
+          <img alt="Lan và Chung chụp ảnh bên thác nước" loading="lazy" src="assets/images/24.jpg"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/18.jpg">
+          <img alt="Khoảnh khắc tình cảm của Lan và Chung trong chuyến đi" loading="lazy" src="assets/images/18.jpg"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/21.jpg">
+          <img alt="Lan và Chung bên dòng thác giữa thiên nhiên" loading="lazy" src="assets/images/21.jpg"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/22.jpg">
+          <img alt="Một khoảnh khắc vui vẻ trong chuyến đi của Lan và Chung" loading="lazy" src="assets/images/22.jpg"/>
+        </button>
+        <button class="photo reveal" data-img="assets/images/23.jpg">
+          <img alt="Lan và Chung cùng ngắm cảnh trong chuyến đi" loading="lazy" src="assets/images/23.jpg"/>
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. Section Countdown (Đếm ngược) -->
+    <section class="count reveal">
+      <span class="eyebrow">Until our day</span>
+      <h2>Đếm từng khoảnh khắc</h2>
+      <div class="count-grid">
+        <div><b id="days">0</b><span>Ngày</span></div>
+        <div><b id="hours">00</b><span>Giờ</span></div>
+        <div><b id="mins">00</b><span>Phút</span></div>
+        <div><b id="secs">00</b><span>Giây</span></div>
+      </div>
+      <p id="countMsg">Hẹn gặp bạn vào ngày 12 tháng 12 năm 2026.</p>
+    </section>
+
+    <!-- 5. Section Calendar (Lịch tháng) -->
+    <section class="section calendar-section">
+      <div class="heading reveal">
+        <span class="eyebrow">Save the date</span>
+        <h2>December <em>2026</em></h2>
+        <div class="actions">
+          <button class="btn outline" data-ics="bride">Lưu tiệc nhà gái</button>
+          <button class="btn outline" data-ics="groom">Lưu tiệc nhà trai</button>
+        </div>
+      </div>
+      <div class="calendar reveal">
+        <div class="week"><b>T2</b><b>T3</b><b>T4</b><b>T5</b><b>T6</b><b>T7</b><b>CN</b></div>
+        <div class="days" id="cal"></div>
+      </div>
+    </section>
+
+    <!-- 6. Section Events (Thông tin tiệc cưới) -->
+    <section class="section events" id="events">
+      <div class="heading center reveal">
+        <span class="eyebrow">Wedding events</span>
+        <h2>Trân trọng <em>kính mời</em></h2>
+      </div>
+      <div class="event-grid">
+        <article class="event reveal">
+          <span>01</span>
+          <div class="eyebrow">Tiệc nhà gái</div>
+          <h3>SeaBay<br/>Hạ Long</h3>
+          <div class="event-date">
+            <b>10:30</b>
+            <p>Thứ Bảy<br/>12.12.2026</p>
+          </div>
+          <address>
+            <strong>Trung tâm tiệc cưới SeaBay Hạ Long</strong><br/>
+            X232+7MW, Bãi Cháy, Quảng Ninh.
+          </address>
+          <div class="links">
+            <a href="https://www.google.com/maps/search/?api=1&query=X232%2B7MW%2C+B%C3%A3i+Ch%C3%A1y%2C+Qu%E1%BA%A3ng+Ninh" rel="noopener noreferrer" target="_blank">Bản đồ ↗</a>
+            <button data-copy="X232+7MW, Bãi Cháy, Quảng Ninh">Sao chép</button>
+            <button data-select="Tiệc nhà gái">RSVP</button>
+          </div>
+        </article>
+        <article class="event rose reveal">
+          <span>02</span>
+          <div class="eyebrow">Tiệc nhà trai</div>
+          <h3>Tư gia<br/>nhà trai</h3>
+          <div class="event-date">
+            <b>17:00</b>
+            <p>Thứ Bảy<br/>12.12.2026</p>
+          </div>
+          <address>
+            <strong>Tại tư gia</strong><br/>
+            Số 8, ngõ 3, đường Văn Hoá, Khối 8 (Xóm Đồng)<br/>
+            Sóc Sơn, Hà Nội.
+          </address>
+          <div class="links">
+            <a href="https://www.google.com/maps/search/?api=1&query=21.195472%2C105.849139" rel="noopener noreferrer" target="_blank">Bản đồ ↗</a>
+            <button data-copy="Số 8, ngõ 3, đường Văn Hoá, Khối 8 (Xóm Đồng), Sóc Sơn, Hà Nội">Sao chép</button>
+            <button data-select="Tiệc nhà trai">RSVP</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 7. Section Family (Thông tin hai nhà) -->
+    <section class="section family reveal">
+      <span class="eyebrow">Together with our families</span>
+      <h2>Gia đình hai bên</h2>
+      <div class="family-groups">
+        <article class="family-card">
+          <small>Nhà gái</small>
+          <p>
+            <span>Ông <b>Bùi Văn Thái</b></span>
+            <span>Bà <b>Nguyễn Thị Hà</b></span>
+          </p>
+        </article>
+        <picture class="family-emblem">
+          <source media="(min-width: 1024px)" srcset="assets/images/logo_liu_chiu_desktop.webp"/>
+          <source media="(min-width: 768px)" srcset="assets/images/logo_liu_chiu_tablet.webp"/>
+          <img alt="Logo Liu Chiu" loading="lazy" src="assets/images/logo_liu_chiu_mobile.webp"/>
+        </picture>
+        <article class="family-card">
+          <small>Nhà trai</small>
+          <p>
+            <span>Ông <b>Nguyễn Văn Năng</b></span>
+            <span>Bà <b>Nguyễn Thị Cầm</b></span>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 8. Section Gift (Mừng cưới / Hộp quà may mắn) -->
+    <section class="section gift" id="gift">
+      <div class="heading reveal">
+        <span class="eyebrow">A little blessing</span>
+        <h2>Gửi lời <em>chúc mừng</em></h2>
+        <p>Sự hiện diện của bạn đã là món quà quý giá nhất. Nếu bạn muốn gửi lời chúc mừng từ xa, hãy chạm mở hộp quà dưới đây nhé.</p>
+      </div>
+      <div class="gift-grid">
+        <!-- Hộp quà mừng cưới cô dâu -->
+        <article class="gift-box-card reveal" id="giftBrideCard">
+          <small>Mừng cưới cô dâu</small>
+          
+          <!-- Hộp quà lắc lư (Hiển thị ban đầu) -->
+          <div class="gift-box-wrapper" id="giftBoxBride">
+            <button class="gift-box-btn" type="button" aria-expanded="false" aria-controls="giftContentBride" aria-label="Mở hộp quà mừng cưới cô dâu Bùi Ngọc Lan">
+              <div class="gift-box-graphic gift-box-rose">
+                <div class="gift-lid">
+                  <div class="gift-bow"></div>
+                </div>
+                <div class="gift-body">
+                  <div class="gift-ribbon-v"></div>
+                  <div class="gift-ribbon-h"></div>
+                </div>
+              </div>
+              <span class="gift-box-cta">
+                <span class="gift-box-cta-icon">🎁</span>
+                <span>Chạm để mở hộp quà</span>
+              </span>
+            </button>
+          </div>
+
+          <!-- Nội dung mã QR (Xuất hiện khi mở hộp quà) -->
+          <div class="gift-content" id="giftContentBride" hidden>
+            <div class="qr-frame">
+              <img alt="Mã QR chuyển khoản VPBank cho cô dâu" class="qr" height="240" loading="lazy" src="assets/images/qr-bride.svg" width="240"/>
+            </div>
+            <p class="bank-info"><span>Bùi Ngọc Lan</span><span>VPBank</span><strong>176948256</strong></p>
+            <button class="btn outline copy-account" data-copy="VPBank - 176948256 - BUI NGOC LAN" data-copy-message="Đã sao chép thông tin tài khoản cô dâu" type="button">Sao chép thông tin</button>
+            <button class="gift-close-btn" type="button" data-close-target="giftBrideCard">Thu gọn hộp quà ✕</button>
+          </div>
+        </article>
+
+        <!-- Hộp quà mừng cưới chú rể -->
+        <article class="gift-box-card reveal" id="giftGroomCard">
+          <small>Mừng cưới chú rể</small>
+          
+          <!-- Hộp quà lắc lư (Hiển thị ban đầu) -->
+          <div class="gift-box-wrapper" id="giftBoxGroom">
+            <button class="gift-box-btn" type="button" aria-expanded="false" aria-controls="giftContentGroom" aria-label="Mở hộp quà mừng cưới chú rể Nguyễn Văn Chung">
+              <div class="gift-box-graphic gift-box-teal">
+                <div class="gift-lid">
+                  <div class="gift-bow"></div>
+                </div>
+                <div class="gift-body">
+                  <div class="gift-ribbon-v"></div>
+                  <div class="gift-ribbon-h"></div>
+                </div>
+              </div>
+              <span class="gift-box-cta">
+                <span class="gift-box-cta-icon">🎁</span>
+                <span>Chạm để mở hộp quà</span>
+              </span>
+            </button>
+          </div>
+
+          <!-- Nội dung mã QR (Xuất hiện khi mở hộp quà) -->
+          <div class="gift-content" id="giftContentGroom" hidden>
+            <div class="qr-frame">
+              <img alt="Mã QR chuyển khoản Techcombank cho chú rể" class="qr" height="240" loading="lazy" src="assets/images/qr-groom.svg" width="240"/>
+            </div>
+            <p class="bank-info"><span>Nguyễn Văn Chung</span><span>Techcombank</span><strong>19031119300014</strong></p>
+            <button class="btn outline copy-account" data-copy="Techcombank - 19031119300014 - NGUYEN VAN CHUNG" data-copy-message="Đã sao chép thông tin tài khoản chú rể" type="button">Sao chép thông tin</button>
+            <button class="gift-close-btn" type="button" data-close-target="giftGroomCard">Thu gọn hộp quà ✕</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 9. Section Wishes (Tường lời chúc) -->
+    <section class="section wishes" id="wishes">
+      <div class="heading center reveal">
+        <span class="eyebrow">Guestbook</span>
+        <h2>Lời chúc <em>từ khách mời</em></h2>
+      </div>
+      <div class="wish-layout wish-layout--form-first">
+        <!-- Form để lại lời chúc -->
+        <form id="wishForm">
+          <h3>Để lại lời chúc</h3>
+          <label>Họ và tên
+            <input autocomplete="name" maxlength="80" name="guestName" required=""/>
+          </label>
+          <label>Lời chúc
+            <textarea maxlength="500" name="wish" required="" rows="5"></textarea>
+          </label>
+          <button class="btn dark" type="submit">Gửi lời chúc</button>
+          <p aria-live="polite" id="wishStatus" role="status"></p>
+        </form>
+
+        <!-- Khung chứa slider lời chúc và thanh điều hướng nút bấm -->
+        <div class="wish-slider-wrapper">
+          <div aria-label="Danh sách lời chúc từ khách mời" aria-live="off" id="wishList" class="wish-slider">
+            <article class="wish">
+              <small>Mẫu</small>
+              <blockquote>Chúc hai bạn luôn giữ được sự dịu dàng, sẻ chia và cùng nhau đi qua thật nhiều mùa hạnh phúc.</blockquote>
+              <p>Người bạn thân</p>
+            </article>
+          </div>
+
+          <!-- Thanh điều khiển Slider (Nút qua/lại & số thứ tự) -->
+          <div class="wish-slider-controls" id="wishSliderControls">
+            <button id="prevWish" aria-label="Lời chúc trước" type="button">‹</button>
+            <span id="wishCounter" class="wish-slider-counter">1 / 1</span>
+            <button id="nextWish" aria-label="Lời chúc tiếp theo" type="button">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Section RSVP (Xác nhận tham dự) -->
+    <section class="section rsvp" id="rsvp">
+      <div class="heading reveal">
+        <span class="eyebrow">Répondez s’il vous plaît</span>
+        <h2>Bạn sẽ <em>đến chung vui?</em></h2>
+        <p>Hãy cho chúng mình biết bạn có thể đến chung vui nhé. Tụi mình rất mong được gặp bạn!</p>
+        <p id="backendState" role="status">Tụi mình đang chuẩn bị biểu mẫu một chút nhé…</p>
+      </div>
+      <form id="rsvpForm">
+        <label>Họ và tên
+          <input maxlength="80" name="name" required=""/>
+        </label>
+        <label>Số người
+          <input max="20" min="1" name="guests" required="" type="number" value="1"/>
+        </label>
+        <label>Số điện thoại, không bắt buộc
+          <input autocomplete="tel" maxlength="30" name="phone" type="tel"/>
+        </label>
+        <label>Sự kiện
+          <select name="event" required="">
+            <option value="">Chọn buổi tiệc</option>
+            <option>Tiệc nhà gái</option>
+            <option>Tiệc nhà trai</option>
+            <option>Cả hai buổi tiệc</option>
+          </select>
+        </label>
+        <fieldset>
+          <legend>Trạng thái</legend>
+          <label><input name="attendance" required="" type="radio" value="Sẽ tham dự"/> Sẽ tham dự</label>
+          <label><input name="attendance" type="radio" value="Không thể tham dự"/> Không thể tham dự</label>
+        </fieldset>
+        <label>Lời nhắn
+          <textarea maxlength="500" name="message" rows="4"></textarea>
+        </label>
+        <button class="btn dark">Gửi xác nhận</button>
+        <p id="rsvpStatus" role="status"></p>
+      </form>
+    </section>
+
+    <!-- 11. Section Closing (Lời cảm ơn) -->
+    <section class="closing reveal">
+      <picture>
+        <source media="(min-width: 1024px)" srcset="assets/images/logo_liu_chiu_desktop.webp"/>
+        <source media="(min-width: 768px)" srcset="assets/images/logo_liu_chiu_tablet.webp"/>
+        <img alt="Logo Liu Chiu" loading="lazy" src="assets/images/logo_liu_chiu_mobile.webp"/>
+      </picture>
+      <h2>Cảm ơn bạn <em>đã là một phần</em> trong ngày đặc biệt.</h2>
+      <p>Lan & Chung · 12.12.2026</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>LAN & CHUNG</span>
+    <span>Hạ Long · Hà Nội</span>
+    <button class="admin-link-btn" id="openLinkModalBtn" title="Tạo link gửi khách mời riêng biệt" type="button">💌 Tạo link khách</button>
+    <span>12.12.2026</span>
+  </footer>
+
+  <!-- Các thành phần bổ trợ UI/UX -->
+  <button aria-label="Bật hoặc tắt cánh hoa rơi" aria-pressed="true" class="petals-toggle" id="petalsToggle" type="button">
+    <span aria-hidden="true">🌸</span>
+  </button>
+  <button aria-label="Phát nhạc nền Hơn Cả Yêu" aria-pressed="false" class="music" id="music" type="button">
+    <span aria-hidden="true">♫</span>
+    <span class="music-label">Nghe nhạc</span>
+  </button>
+  <div aria-hidden="true" class="music-audio-player" id="musicPlayer"></div>
+  <div class="toast" id="toast"></div>
+
+  <!-- Lightbox Album tương tác vuốt chạm (Touch/Swipe) -->
+  <div aria-label="Album ảnh cưới" aria-modal="true" class="lightbox" hidden="" id="lightbox" role="dialog">
+    <button aria-label="Đóng xem ảnh" class="lightbox-close" id="close" type="button">×</button>
+    <button aria-label="Ảnh trước" class="lightbox-nav lightbox-prev" id="lightPrev" type="button">‹</button>
+    <div class="lightbox-wrapper" id="lightWrapper">
+      <img alt="Ảnh phóng lớn" id="lightImg"/>
+      <p class="lightbox-caption" id="lightCaption"></p>
+    </div>
+    <button aria-label="Ảnh tiếp theo" class="lightbox-nav lightbox-next" id="lightNext" type="button">›</button>
+    <div class="lightbox-counter" id="lightCounter">1 / 9</div>
+  </div>
+
+  <!-- Modal Công cụ tạo link mời khách (Dành cho Cô dâu & Chú rể) -->
+  <div aria-label="Tạo link thiệp mời cá nhân hóa" aria-modal="true" class="link-modal" hidden="" id="linkModal" role="dialog">
+    <div class="link-modal-card">
+      <button aria-label="Đóng công cụ" class="link-modal-close" id="closeLinkModal" type="button">×</button>
+      <span class="eyebrow">Dành cho Lan & Chung</span>
+      <h3>Tạo link gửi khách mời</h3>
+      <p class="link-modal-desc">Nhập tên khách mời để tạo đường link thiệp riêng biệt hiển thị tên khách trên phong bì và tự điền form.</p>
+      
+      <form id="linkGenForm" onsubmit="return false;">
+        <label>Tên khách mời hiển thị trên thiệp
+          <input id="genGuestName" placeholder="Ví dụ: Anh Tuấn & Chị Linh, Bạn Lan Anh..." required="" type="text"/>
+        </label>
+        <label>Buổi tiệc mời
+          <select id="genGuestSide">
+            <option value="">Cả hai buổi tiệc</option>
+            <option value="bride">Tiệc nhà gái (Hạ Long)</option>
+            <option value="groom">Tiệc nhà trai (Sóc Sơn)</option>
+          </select>
+        </label>
+        <div class="link-preview-box">
+          <span class="link-preview-label">Link xem trước:</span>
+          <code id="genLinkPreview">https://lan-chung-wedding.netlify.app/</code>
+        </div>
+        <button class="btn dark" id="btnCopyGenLink" type="button">Sao chép link gửi khách</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
